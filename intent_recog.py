@@ -5,9 +5,16 @@ import re
 def intent_rec(raw_user_input):
     #define list of possible keywords for matching
     maybe_members = {"member", "members", "character", "characters", "look", "up", "search", "find", "who", "info", "details", "person","people", "game", "in-game"}
-    maybe_cards = {"look", "up", "card", "cards", "game", "in-game", "info", "details","search", "find","ability"}
-    maybe_gacha = {"gacha", "pull", "pulls", "roll", "draw", "scout","get"}
+    maybe_cards = {"look", "up", "card", "cards", "game", "in-game", "info", "details","search", "find","ability", "battle", "compare"}
+    maybe_gacha = {"gacha", "pull", "pulls", "roll", "draw", "scout","get", "simulator"}
     maybe_bot = {"bot", "tone", "character", "change", "voice", "speak", "style", "modify", "sound","like","chatbot"}
+    
+    #member branch:
+    #at this point users can: find a member, find a band
+    find_member = {"name", "band", "look", "up", "search"}
+    
+    #member specifics:
+    #at this point users can search: Astrological Sign, school/school year, fav/least fav food, role, birthday, CV, list of cards
     
     intents = raw_user_input
     intents = set(re.findall(r'\b\w+\b', raw_user_input.lower()))

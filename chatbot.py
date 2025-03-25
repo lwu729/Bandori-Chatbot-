@@ -24,7 +24,7 @@ def process_intent(user_input):
         
     if yn_input.startswith("y"):
         if "members"in intents or "cards" in intents:
-            getGeneral(intents[0])
+            members = getGeneral(intents[0])
         elif "gacha" in intents:
             gacha()
         elif "change tone" in intents:
