@@ -1,4 +1,5 @@
 # only focus on creating tones of different characters
+# I'm not doing tone change anymore due to time constraints
 saki = 0
 ako = 1
 rinko = 2

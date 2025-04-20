@@ -7,22 +7,25 @@ def intent_rec(raw_user_input, guide):
     maybe_members = {"member", "members", "character", "characters", "look", "up", "search", "find", "who", "info", "details", "person","people", "game", "in-game"}
     maybe_cards = {"look", "up", "card", "cards", "game", "in-game", "info", "details","search", "find","ability", "battle", "compare"}
     maybe_gacha = {"gacha", "pull", "pulls", "roll", "draw", "scout","get", "simulator"}
-    maybe_bot = {"bot", "tone", "character", "change", "voice", "speak", "style", "modify", "sound","like","chatbot"}
+    #maybe_bot = {"bot", "tone", "character", "change", "voice", "speak", "style", "modify", "sound","like","chatbot"}
     
     #member branch, "member":
     #at this point users can: find a member, find all the members in a band
-    find_member = {"name", "a", "member", "look", "up", "search"}
-    find_band = {"all", "members", "from", "certain", "band", "roselia", "ppp", "poppin'party", "ag", "afterglow"}
+    find_member = {"name", "a", "member", "look", "up", "search", "specific"}
+    find_sim = {"similarity", "similar", "same", "alike", "by", "sort", "list", "of", "members"}
+
     
-    #member specifics, "mem_specifics":
-    #at this point users can search: Astrological Sign, school/school year, fav/least fav food, role, birthday, CV, list of cards
-    astro = {}
-    school = {}
-    school_year = {}
-    likes_dislikes = {}
-    band_role = {}
-    birthday = {}
-    cv = {}
+    #member similarities:
+    #at this point users can search: Astrological Sign, school/school year, fav/least fav food, role, birthday, CV
+    astro = {"astro","sign","same", "have"}
+    school_year = {"school year","grade", "year", "age", "in", "which", "high", "first", "second", "third", "same year"}
+    school = {"school", "in", "same", "high", "university", "enrolled"}
+    band = {"band", "morfonica","in", "in the same", "roselia","poppin'party", "ppp", "ag", "afterglow", "mygo", "ave mujica", "mujica", "mygo!!!!!", "pastel","palette","hhw", "hello", "happy","world"}
+    band_role = {"role", "position", "bass", "instrument", "instruments", "drum", "vocal", "guitar", "keyboard", "dj"}
+    
+    #look up for single card/by stars/by elements/by character
+
+    
     list_of_cards = {}
     
     intents = raw_user_input
@@ -34,18 +37,42 @@ def intent_rec(raw_user_input, guide):
     mem_index = len(maybe_members & intents)
     card_index = len(maybe_cards & intents)
     gacha_index = len(maybe_gacha & intents)
-    bot_index = len(maybe_bot & intents)
+    #bot_index = len(maybe_bot & intents)
     
     #member:
     single_mem = len(find_member & intents)
-    sim_mem = len(find_band & intents)
+    sim_mem = len(find_sim & intents)
+    
+    #sim_member:
+    astro_index = len(astro & intents)
+    school_index = len(school & intents)
+    band_index = len(band & intents)
+    band_role_index = len(band_role & intents)
+    school_year_index = len(school_year & intents)
     
     
     if guide == "raw":
-        indexes = {"members":mem_index, "cards":card_index, "gacha":gacha_index, "change tone":bot_index}
-    if guide == "member":
+        indexes = {"members": mem_index, "cards": card_index, "gacha": gacha_index}
+    elif guide == "member":
         indexes = {"member": single_mem, "similar members": sim_mem}
+    elif guide == "sim_member":
+        indexes = {
+            "i_astrological_sign": astro_index,
+            "i_school_year": school_year_index,
+            "school": school_index,
+            "i_band": band_index,
+            "instrument": band_role_index
+        }
+    else:
+        print("Unknown guide type.")
+        return None
 
+
+
+
+    if indexes == 0:
+        print("Sorry, please input something related to the given prompt.")
+        return
     max_index = max(indexes, key=indexes.get)
     max_value = indexes[max_index] 
     maxx = []
