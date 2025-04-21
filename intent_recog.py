@@ -23,10 +23,9 @@ def intent_rec(raw_user_input, guide):
     band = {"band", "morfonica","in", "in the same", "roselia","poppin'party", "ppp", "ag", "afterglow", "mygo", "ave mujica", "mujica", "mygo!!!!!", "pastel","palette","hhw", "hello", "happy","world"}
     band_role = {"role", "position", "bass", "instrument", "instruments", "drum", "vocal", "guitar", "keyboard", "dj"}
     
-    #look up for single card/by stars/by elements/by character
-
-    
-    list_of_cards = {}
+    #look up for single card/by attribute/by elements/by character/by band
+    single_card = {"single", "card", "one", "search", "specific","look", "up"}
+    list_of_cards = {"by", "cards", "stars", "rarity", "attribute", "same", "similarity", "similar", "same", "alike", "by", "sort", "list", "of", "lists"}
     
     intents = raw_user_input
     intents = set(re.findall(r'\b\w+\b', raw_user_input.lower()))
@@ -50,9 +49,15 @@ def intent_rec(raw_user_input, guide):
     band_role_index = len(band_role & intents)
     school_year_index = len(school_year & intents)
     
+    #card:
+    single_card_index = len(single_card & intents)
+    list_of_cards_index = len(list_of_cards & intents)
+    
     
     if guide == "raw":
         indexes = {"members": mem_index, "cards": card_index, "gacha": gacha_index}
+    elif guide == "card":
+        indexes = {"single card":single_card_index, "list of cards":list_of_cards_index}
     elif guide == "member":
         indexes = {"member": single_mem, "similar members": sim_mem}
     elif guide == "sim_member":
