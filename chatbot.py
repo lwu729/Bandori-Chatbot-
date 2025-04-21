@@ -398,7 +398,8 @@ def match_member_name(user_input, all_data):
     sim_index = 0
     high_sim = []
 
-    all_member = [person["name"] for person in all_data if "name" in person]
+    all_member = [person["name"] for person in all_data if isinstance(person.get("name"), str)]
+
     
 
     for person_name in all_member:
