@@ -7,7 +7,7 @@ def intent_rec(raw_user_input, guide):
     maybe_members = {"member", "members", "character", "characters", "look", "up", "search", "find", "who", "info", "details", "person","people", "game", "in-game"}
     maybe_cards = {"look", "up", "card", "cards", "game", "in-game", "info", "details","search", "find","ability", "battle", "compare"}
     maybe_gacha = {"gacha", "pull", "pulls", "roll", "draw", "scout","get", "simulator"}
-    #maybe_bot = {"bot", "tone", "character", "change", "voice", "speak", "style", "modify", "sound","like","chatbot"}
+    maybe_bot = {"bot", "tone", "character", "change", "voice", "speak", "style", "modify", "sound","like","chatbot"}
     
     #member branch, "member":
     #at this point users can: find a member, find all the members in a band
@@ -20,9 +20,15 @@ def intent_rec(raw_user_input, guide):
     astro = {"astro","sign","same", "have"}
     school_year = {"school year","grade", "year", "age", "in", "which", "high", "first", "second", "third", "same year"}
     school = {"school", "in", "same", "high", "university", "enrolled"}
-    band = {"band", "morfonica","in", "in the same", "roselia","poppin'party", "ppp", "ag", "afterglow", "mygo", "ave mujica", "mujica", "mygo!!!!!", "pastel","palette","hhw", "hello", "happy","world"}
-    band_role = {"role", "position", "bass", "instrument", "instruments", "drum", "vocal", "guitar", "keyboard", "dj"}
-    
+    band = {
+    "band", "afterglow", "roselia", "morfonica", "poppinparty", "hello", "happy", "world",
+    "pastel", "palettes", "raise", "suilen", "mygo", "mujica", "ppp", "hhw", "ras"
+    }
+
+    band_role = {
+        "role", "position", "instrument", "instruments",
+        "guitar", "bass", "drums", "keyboard", "dj", "vocals", "violin", "keytar", "singer"
+    }
     #look up for single card/by attribute/by elements/by character/by band
     single_card = {"single", "card", "one", "search", "specific","look", "up"}
     list_of_cards = {"by", "cards", "stars", "rarity", "attribute", "same", "similarity", "similar", "same", "alike", "by", "sort", "list", "of", "lists"}
@@ -36,7 +42,7 @@ def intent_rec(raw_user_input, guide):
     mem_index = len(maybe_members & intents)
     card_index = len(maybe_cards & intents)
     gacha_index = len(maybe_gacha & intents)
-    #bot_index = len(maybe_bot & intents)
+    bot_index = len(maybe_bot & intents)
     
     #member:
     single_mem = len(find_member & intents)
@@ -55,7 +61,7 @@ def intent_rec(raw_user_input, guide):
     
     
     if guide == "raw":
-        indexes = {"members": mem_index, "cards": card_index, "gacha": gacha_index}
+        indexes = {"members": mem_index, "cards": card_index, "gacha": gacha_index, "bot":bot_index}
     elif guide == "card":
         indexes = {"single card":single_card_index, "list of cards":list_of_cards_index}
     elif guide == "member":
